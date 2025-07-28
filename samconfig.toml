@@ -1,0 +1,17 @@
+version = 0.1
+
+[default.deploy]
+stack_name = "simple-private-bucket-stack"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-xfdaipcxvvw6"  # An S3 bucket you already own to store deployment artifacts
+region = "us-east-1"
+capabilities = ""
+confirm_changeset = false
+no_fail_on_empty_changeset = true
+
+[default.deploy.parameters]
+stack_name = "app004"
+resolve_s3 = true
+s3_prefix = "app004"
+region = "us-east-1"
+capabilities = "CAPABILITY_IAM"
+image_repositories = []

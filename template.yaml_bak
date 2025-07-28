@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Simple SAM lab to print environment stage
+
+Globals:
+  Function:
+    Timeout: 3
+    Runtime: python3.11
+
+Parameters:
+  Environment:
+    Type: String
+    Description: The deployment environment (dev, qa, prod)
+
+Resources:
+  StagePrinterFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "StagePrinter-${Environment}"
+      Handler: app.lambda_handler
+      CodeUri: .
+      Environment:
+        Variables:
+          STAGE_NAME: !Ref Environment
+      Events:
+        HttpApiEvent:
+          Type: HttpApi
+          Properties:
+            Path: /stage
+            Method: GET
+
